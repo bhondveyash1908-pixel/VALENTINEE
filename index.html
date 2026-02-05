@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(#ffdde1, #ee9ca7);
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  text-align: center;
+  z-index: 2;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #b30059;
+  margin-bottom: 30px;
+}
+
+.buttons {
+  position: relative;
+}
+
+button {
+  font-size: 1.2rem;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+#yes {
+  background: #ff4d88;
+  color: white;
+}
+
+#no {
+  background: #444;
+  color: white;
+  position: absolute;
+  left: 120px;
+}
+
+/* Heart image */
+.heart-img {
+  width: 220px;
+  height: 200px;
+  margin: 20px auto;
+  background: url('photo.jpg') center/cover no-repeat;
+  clip-path: polygon(
+    50% 90%,
+    100% 40%,
+    80% 10%,
+    50% 30%,
+    20% 10%,
+    0% 40%
+  );
+  display: none;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Purva, will you be my Valentine? 💖</h1>
+
+  <div class="heart-img" id="photoHeart"></div>
+
+  <div class="buttons">
+    <button id="yes">Yes ❤️</button>
+    <button id="no">No 😜</button>
+  </div>
+
+  <h2 id="message" style="color:#b30059;"></h2>
+</div>
+
+<!-- Sounds -->
+<audio id="yesSound" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+<audio id="noSound" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+
+<script>
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const msg = document.getElementById("message");
+const heartImg = document.getElementById("photoHeart");
+
+noBtn.addEventListener("mouseover", () => {
+  document.getElementById("noSound").play();
+  noBtn.style.left = Math.random() * 200 - 100 + "px";
+  noBtn.style.top = Math.random() * 200 - 100 + "px";
+});
+
+yesBtn.addEventListener("click", () => {
+  document.getElementById("yesSound").play();
+  msg.innerText = "My Best Valentine, I love you 💕";
+  heartImg.style.display = "block";
+  launchHearts();
+});
+
+function launchHearts() {
+  for (let i = 0; i < 40; i++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerText = "💖";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.animationDuration = 3 + Math.random() * 3 + "s";
+    document.body.appendChild(h);
+
+    setTimeout(() => h.remove(), 6000);
+  }
+}
+</script>
+
+</body>
+</html>
